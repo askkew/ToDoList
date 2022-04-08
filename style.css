@@ -62,7 +62,7 @@ form button:hover{
     align-items: center;
 }
 
-.todo li{
+.todo div{
     flex: 1;
 }
 

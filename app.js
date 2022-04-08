@@ -9,10 +9,10 @@ todoButton.addEventListener('click', addToDo);
 function addToDo(event){
     event.preventDefault(); ///prevent form from refreshing
     //ToDoDIV
-    const todoDiv = document.createElement('div');
+    const todoDiv = document.createElement('li');
     todoDiv.classList.add("todo");
     //createLI
-    const newTodo = document.createElement('li');
+    const newTodo = document.createElement('div');
     newTodo.innerText = todoInput.value;
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
@@ -30,5 +30,5 @@ function addToDo(event){
     todoList.appendChild(todoDiv);
     //Clear text box
     todoInput.value = "";
-
+    //asdfasdf
 }
