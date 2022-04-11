@@ -4,6 +4,7 @@ const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 //Event Listeners
+document.addEventListener('DOMContentLoaded', getTodos);
 todoButton.addEventListener("click", addToDo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("click", filterTodo);
@@ -46,6 +47,7 @@ function deleteCheck(e){
         const todo = item.parentElement;
         //animation
         todo.classList.add('fall');
+        removeLocalTodos(todo);
         todo.addEventListener('transitionend', function(){
             todo.remove();
         });
@@ -94,3 +96,45 @@ function saveLocalTodos(todo){
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+function getTodos(){
+    let todos;
+    if(localStorage.getItem('todos') === null){
+        todos = [];
+    }else{
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    todos.forEach(function(todo){
+        //ToDoDIV
+        const todoDiv = document.createElement('li');
+        todoDiv.classList.add("todo");
+        //createLI
+        const newTodo = document.createElement('div');
+        newTodo.innerText = todo;
+        newTodo.classList.add('todo-item');
+        todoDiv.appendChild(newTodo);
+        //completedbutton
+        const completedButton = document.createElement('button');
+        completedButton.innerHTML = '<i class="fas fa-check"></i>'
+        completedButton.classList.add("complete-btn");
+        todoDiv.appendChild(completedButton);
+        //deletedbutton
+        const deletedButton = document.createElement('button');
+        deletedButton.innerHTML = '<i class="fas fa-trash"></i>'
+        deletedButton.classList.add("delete-btn");
+        todoDiv.appendChild(deletedButton);
+        //append to list
+        todoList.appendChild(todoDiv);
+    });
+}
+
+function removeLocalTodos(todo){
+    let todos;
+    if(localStorage.getItem('todos') === null){
+        todos = [];
+    }else{
+        todos = JSON.parse(localStorage.getItem('todos'));
+    }
+    const todoIndex = todo.children[0].innerText;
+    todos.splice(todos.indexOf(todoIndex), 1);
+    localStorage.setItem('todos', JSON.stringify(todos));
+}
